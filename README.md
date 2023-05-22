@@ -1,7 +1,9 @@
 # Run:
+1. clone this project
+2. set access for entrypoint.sh `chmod 777 entrypoint.sh`
 1. `docker-compose up db`
 2. Restore dump to database via psql
-3. copy-past filestore to openupgrade folder
+3. copy-past filestore to openupgrade folder and set access `chmod -R 777 filestore`
 4. Run migration proccess: `docker-compose up`
 5. Check migration logs: `tail -f /openupgrade/log/migration.log`
 
