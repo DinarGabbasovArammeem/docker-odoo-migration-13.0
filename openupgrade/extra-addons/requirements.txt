@@ -1,0 +1,17 @@
+#
+# Copyright (c) 2018-2019 Aram Meem Company Limited. All rights reserved.
+#
+
+# List of the python requirements that should be add in docker image.
+
+phonenumbers
+pandas
+SQLAlchemy
+xlrd>=1.1.0
+premailer
+kafka-python
+avro
+confluent_kafka
+fastavro
+redis==3.4.1
+wdb

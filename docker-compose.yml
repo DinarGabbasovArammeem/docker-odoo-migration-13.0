@@ -1,0 +1,46 @@
+version: "3.1"
+services:
+
+  openupgrade:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+      - wdb
+    volumes:
+      - odoo-data:/var/lib/odoo
+      - ./entrypoint.sh:/entrypoint.sh
+      - ./openupgrade/filestore:/var/lib/odoo/filestore/mcpsand
+      - ./openupgrade/extra-addons:/openupgrade/extra-addons
+      - ./openupgrade/log:/openupgrade/log
+    environment:
+      - DB_NAME=mcpsand
+      - DB_USER=odoo
+      - DB_PASSWORD=odoo
+      - DB_HOST=db
+      - DB_PORT=5432
+      - WDB_NO_BROWSER_AUTO_OPEN=True
+      - WDB_SOCKET_SERVER=wdb
+    entrypoint: /entrypoint.sh
+
+  wdb:
+    image: kozea/wdb:3.2.5
+    ports:
+      - 1984:1984
+
+  db:
+    image: postgres:12
+    restart: always
+    ports:
+      - 5432
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_PASSWORD=odoo
+      - POSTGRES_USER=odoo
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+volumes:
+  db-data:
+  odoo-data:
